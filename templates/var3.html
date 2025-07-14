@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}Solo{% endblock %}
+
+{% block container %}
+
+<div class="container my-4">
+    <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://alta.ge/_next/image?url=https%3A%2F%2Fimgstore.alta.ge%2Fimages%2F0f729f11-c417-4385-8eca-da920e9eb989b32bbe64-f686-47f8-957b-8c483eb508c6.jpeg&w=1920&q=100"
+                     class="d-block w-100" alt="Product 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://alta.ge/_next/image?url=https%3A%2F%2Fimgstore.alta.ge%2Fimages%2Fda5fa8d5-286e-474d-8852-f821e213f1bcfbcbd426-c0d2-4bec-9f7d-503f876208b2.jpeg&w=1920&q=100"
+                     class="d-block w-100" alt="Product 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://alta.ge/_next/image?url=https%3A%2F%2Fimgstore.alta.ge%2Fimages%2F242f1e9d-9a14-4651-b34a-e01194718b5d9f98ea5a-3690-4a97-8b98-641392514cc5.png&w=1920&q=100"
+                     class="d-block w-100" alt="Product 3">
+            </div>
+
+            <div class="carousel-item">
+                <img src="https://alta.ge/_next/image?url=https%3A%2F%2Fimgstore.alta.ge%2Fimages%2Fd619e286-aaf0-4552-8030-c4f2f108cf8226a7e679-952d-4ef8-8758-21be6e49d97a.png&w=1920&q=100"
+                     class="d-block w-100" alt="Product 4">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <br>
+    <br>
+
+    <hr class="black-line">
+
+    <br>
+    <br>
+
+    <div class="row text-dark g-4">
+        {% for product in productebi %}
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100">
+                <img src="/static/images/{{ product.img }}" class="card-img-top"
+                     alt="{{ product.name }}">
+                <div class="card-body">
+                    <h4 class="card-title">{{ product.name }}</h4>
+                    <h6 class="card-text">{{ product.info }}</h6>
+                    <p class="card-text">{{ product.price }} GEL</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ url_for('view_product', product_id=product.id) }}" class="btn btn-dark">ნახვა</a>
+                        {% if current_user.is_authenticated and current_user.role != "Admin" %}
+                        <form action="/add_to_cart/{{ product.id }}" method="post">
+                            <input type="hidden" name="item_id" value="{{ product.id }}">
+                            <button type="submit" class="btn btn-outline-primary">კალათაში დამატება</button>
+                        </form>
+                        {% endif %}
+                    </div>
+
+                    {% if current_user.is_authenticated and current_user.role == "Admin" %}
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        <a href="/edit_product/{{ product.id }}" class="btn btn-success">რედაქტირება</a>
+                        <a href="/delete_product/{{ product.id }}" class="btn btn-danger">წაშლა</a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <hr class="black-line">
+    <br>
+    <br>
+    <header style="background-color:#808080; color:white; padding:1rem 2rem; text-align:center; font-size:1.8rem; font-weight:bold;">
+
+        სწრაფი,მარტივი და სანდო შოპინგი ერთ სივრცეში!!!
+    </header>
+    <br>
+    <br>
+    <div class="container my-5">
+        <div class="row text-center align-items-center g-4">
+
+
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnBhOWEzcDBnem1jc3J1MzhkNmQwN29kYzlmeHZ2YnozMm1qaWI0MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KFi3MFDXXEmxzAh5Gw/giphy.gif"
+                     class="img-fluid rounded shadow" alt="left-1">
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3ljZDRoem5ybGVrYnRjM3h4aXY4MzQ2b28yeGdiZjVueGZnOGViciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/B64qn0QAU1RSDNabOq/giphy.gif"
+                     class="img-fluid rounded shadow" alt="left-2">
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXZrcjY4bnUyM3VqMDV1cjhoZ2JmdTFlaG9zbGRjNjR3cDA5bnB2ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0XEhGFY0RvuDJdWBrK/giphy.gif"
+                     class="img-fluid rounded shadow" alt="right-1">
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnFrMnZmbzluOTN1aDN4ZDg0OW9jY2w4YTg3N21hZ25jaTlvYzUzdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8rljBufM9xKkE/giphy.gif"
+                     class="img-fluid rounded shadow" alt="right-2">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnZ5czV2ZXoyb3Rxbzd2djh3N2QxMGE2ZDdzOXQ1MWV4dmZzcjA1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VgTPDhteA6aRMTqPoL/giphy.gif"
+                     class="img-fluid rounded shadow" alt="left-1">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExenViZHBkZmJ2Zzk4MWN5Z2x6bGI3dzJxYnJzcWY3NjBzbmRxa2JjcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uKeh4OTeiCWXhYRu3c/giphy.gif"
+                     class="img-fluid rounded shadow" alt="left-2">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3k2cGt2YXV1eTl3cTF5Z2x3Ym42cjZ6bTNpb2k0bTNmcXhqeDJsaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/g3PbHr0Ag5dN92jWwE/giphy.gif"
+                     class="img-fluid rounded shadow" alt="left-2">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bmZuaTc3emdmODQxMGJ4am56OGp6dGduazd6YWR3Y3NweXdnNndidCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/5XbTNvfEfuchauvG8L/giphy.gif"
+                     class="img-fluid rounded shadow" alt="right-2">
+
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {% endblock %}

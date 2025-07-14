@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+პროდუქტის შექმნა
+{% endblock %}
+
+{% block container %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    {% for errors in form.errors.values() %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+        * {{ error }}
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    {{ form.img(class="form-control", accept=".png, .jpeg, .jpg") }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.name(class="form-control", placeholder=form.name.label.text) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.price(class="form-control", placeholder=form.price.label.text) }}
+                </div>
+                <div class="d-grid">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
