@@ -23,7 +23,7 @@ class RegistrationForm(FlaskForm):
 
 class ProductForm(FlaskForm):
     img = FileField("აირჩიე ფოტო", validators=[
-        FileRequired(),
+    
         FileAllowed(["jpg", "jpeg", "png", "webp"], "მხოლოდ ფოტოები!")
     ])
     name = StringField("სახელი", validators=[DataRequired()])
