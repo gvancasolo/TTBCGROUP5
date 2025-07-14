@@ -167,7 +167,7 @@ def edit_product(product_id):
         product.name = form.name.data
         product.price = form.price.data
 
-        if form.img.data:
+       if form.img.data and hasattr(form.img.data, 'filename'):
             image = form.img.data
             filename = image.filename
             upload_folder = os.path.join(app.root_path, "static", "images")
